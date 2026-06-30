@@ -43,4 +43,4 @@ services:
         fromService:
           type: web
           name: sip-core-backend
-          property: host
+          property: url # Cambiamos de "host" a "url" para obtener la dirección pública completa
