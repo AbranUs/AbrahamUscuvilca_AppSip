@@ -8,6 +8,7 @@ from app.core.exceptions import CredentialsException, RoleNotAuthorizedException
 from app.database.session import get_db
 from app.routes import auth_routes, cliente_routes, asesor_routes, comite_routes, sync_routes, admin_routes
 import time
+import traceback
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -57,6 +58,16 @@ def resource_not_found_handler(request: Request, exc: ResourceNotFoundException)
         content={"detail": exc.detail},
     )
 
+@app.exception_handler(Exception)
+def global_exception_handler(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=500,
+        content={
+            "detail": f"Internal Server Error: {str(exc)}",
+            "traceback": traceback.format_exc()
+        }
+    )
+
 # Incluir Rutas de API
 app.include_router(auth_routes.router)
 app.include_router(cliente_routes.router)
@@ -65,11 +76,13 @@ app.include_router(comite_routes.router)
 app.include_router(sync_routes.router)
 app.include_router(admin_routes.router)
 
+from sqlalchemy import text
+
 @app.get("/health", tags=["Health"])
 def health_check(db: Session = Depends(get_db)):
     try:
         # Verificar conexión con la base de datos
-        db.execute("SELECT 1")
+        db.execute(text("SELECT 1"))
         db_status = "ONLINE"
     except Exception as e:
         db_status = f"OFFLINE: {str(e)}"
