@@ -29,11 +29,12 @@ services:
         value: "false"
 
   # 2. Frontend Panel de Administración (React / Vite)
-  - type: static
+  - type: web
     name: sip-web-admin
+    runtime: static
     rootDir: web_admin_sip
     buildCommand: npm install && npm run build
-    publishDir: dist
+    staticPublishPath: ./dist
     envVars:
       - key: VITE_API_BASE
         fromService:
