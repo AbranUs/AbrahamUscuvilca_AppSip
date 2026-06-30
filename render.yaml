@@ -1,0 +1,42 @@
+services:
+  # 1. Backend Core API (FastAPI)
+  - type: web
+    name: sip-core-backend
+    runtime: python
+    rootDir: backend_core_mobile
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false # Se debe configurar en el panel de Render con tu URL de Supabase
+      - key: JWT_SECRET_KEY
+        generateValue: true # Render genera una clave secreta aleatoria y segura de manera automática
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: JWT_EXPIRE_MINUTES
+        value: "480"
+      - key: SUPABASE_URL
+        value: https://grihcjooepzerrsmizhr.supabase.co
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false # Se debe ingresar la service role key de Supabase en el panel de Render
+      - key: SUPABASE_STORAGE_BUCKET
+        value: documentos-creditos
+      - key: APP_ENV
+        value: production
+      - key: APP_NAME
+        value: "SIP Mobile Core 360"
+      - key: APP_DEBUG
+        value: "false"
+
+  # 2. Frontend Panel de Administración (React / Vite)
+  - type: static
+    name: sip-web-admin
+    rootDir: web_admin_sip
+    buildCommand: npm install && npm run build
+    publishDir: dist
+    envVars:
+      - key: VITE_API_BASE
+        fromService:
+          type: web
+          name: sip-core-backend
+          property: host

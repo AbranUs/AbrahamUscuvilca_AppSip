@@ -18,7 +18,7 @@ import {
   Plus
 } from 'lucide-react';
 
-const API_BASE = "http://localhost:8003";
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8003";
 
 export default function App() {
   const formatAmount = (val) => {
