@@ -446,7 +446,7 @@ export default function App() {
             gap: '8px',
             flexShrink: 0
           }}>
-            <span>⚠️ MODO SIMULACIÓN (SIN CONEXIÓN): Se están mostrando datos de prueba locales porque no se pudo conectar al servidor backend (puerto 8003).</span>
+            <span>⚠️ MODO SIMULACIÓN (SIN CONEXIÓN): Se están mostrando datos de prueba locales porque no se pudo conectar al servidor backend.</span>
           </div>
         )}
         <header className="top-header">
