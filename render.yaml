@@ -2,15 +2,16 @@ services:
   # 1. Backend Core API (FastAPI)
   - type: web
     name: sip-core-backend
+    plan: free # Especificamos el plan gratuito para que no pida tarjeta
     runtime: python
     rootDir: backend_core_mobile
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: DATABASE_URL
-        sync: false # Se debe configurar en el panel de Render con tu URL de Supabase
+        sync: false
       - key: JWT_SECRET_KEY
-        generateValue: true # Render genera una clave secreta aleatoria y segura de manera automática
+        generateValue: true
       - key: JWT_ALGORITHM
         value: HS256
       - key: JWT_EXPIRE_MINUTES
@@ -18,7 +19,7 @@ services:
       - key: SUPABASE_URL
         value: https://grihcjooepzerrsmizhr.supabase.co
       - key: SUPABASE_SERVICE_ROLE_KEY
-        sync: false # Se debe ingresar la service role key de Supabase en el panel de Render
+        sync: false
       - key: SUPABASE_STORAGE_BUCKET
         value: documentos-creditos
       - key: APP_ENV
@@ -32,6 +33,7 @@ services:
   - type: web
     name: sip-web-admin
     runtime: static
+    plan: free # El plan gratuito también se especifica aquí
     rootDir: web_admin_sip
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
