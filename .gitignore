@@ -1,0 +1,33 @@
+# Root .gitignore for proyectoappsip
+
+# Python/Backend files
+backend_core_mobile/venv/
+backend_core_mobile/.env
+backend_core_mobile/__pycache__/
+backend_core_mobile/**/*.pyc
+backend_core_mobile/uploads/
+
+# Node/React web files
+web_admin_sip/node_modules/
+web_admin_sip/dist/
+web_admin_sip/build/
+web_admin_sip/.env.local
+web_admin_sip/.env.*.local
+
+# Flutter/Dart files
+mobile_app_sip/.dart_tool/
+mobile_app_sip/build/
+mobile_app_sip/.flutter-plugins
+mobile_app_sip/.flutter-plugins-dependencies
+mobile_app_sip/.packages
+
+# Editor/System directories
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+.DS_Store
+Thumbs.db
