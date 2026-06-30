@@ -35,7 +35,6 @@ services:
   - type: web
     name: sip-web-admin
     runtime: static
-    plan: free
     rootDir: web_admin_sip
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
