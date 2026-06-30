@@ -40,7 +40,4 @@ services:
     staticPublishPath: ./dist
     envVars:
       - key: VITE_API_BASE
-        fromService:
-          type: web
-          name: sip-core-backend
-          property: url # Cambiamos de "host" a "url" para obtener la dirección pública completa
+        value: https://sip-core-backend.onrender.com # Definimos la URL pública directamente
