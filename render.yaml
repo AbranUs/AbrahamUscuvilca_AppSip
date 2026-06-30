@@ -2,7 +2,7 @@ services:
   # 1. Backend Core API (FastAPI)
   - type: web
     name: sip-core-backend
-    plan: free # El backend dinámico sí necesita indicar "free" para evitar cargos
+    plan: free
     runtime: python
     rootDir: backend_core_mobile
     buildCommand: pip install -r requirements.txt
@@ -28,11 +28,14 @@ services:
         value: "SIP Mobile Core 360"
       - key: APP_DEBUG
         value: "false"
+      - key: CORS_ORIGINS
+        value: "http://localhost:8080,http://127.0.0.1:8080,http://localhost:5173,http://127.0.0.1:5173,https://sip-web-admin.onrender.com"
 
   # 2. Frontend Panel de Administración (React / Vite)
   - type: web
     name: sip-web-admin
     runtime: static
+    plan: free
     rootDir: web_admin_sip
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist

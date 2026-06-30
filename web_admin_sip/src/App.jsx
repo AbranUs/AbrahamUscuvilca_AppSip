@@ -22,6 +22,7 @@ let API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8003";
 if (API_BASE && !API_BASE.startsWith("http://") && !API_BASE.startsWith("https://")) {
   API_BASE = `https://${API_BASE}`;
 }
+console.log("Resolved API_BASE:", API_BASE);
 
 export default function App() {
   const formatAmount = (val) => {
